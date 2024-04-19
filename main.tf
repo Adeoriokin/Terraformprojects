@@ -39,13 +39,13 @@ module "vpc1" {
   }]
 }
 
-data "aws_ami" "ubuntu" {
+data "aws_ami" "data.aws_ami.amzn-linux-2023-ami.id" {
   most_recent = true
   owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["al2023-ami-2023.*-x86_64"]
   }
 }
 
@@ -78,7 +78,7 @@ module "ec2" {
 
   name = local.name
 
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         =data.aws_ami.amzn-linux-2023-ami.id
   instance_type               = "c5.large"
   availability_zone           = local.availability_zone
  
@@ -92,7 +92,7 @@ module "ec2_instance" {
 
   name = "testmachine1"
 
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.aws_ami.amzn-linux-2023-ami.id
   instance_type               = "c5.large"
   availability_zone           = local.availability_zone
 
