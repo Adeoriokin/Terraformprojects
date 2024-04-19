@@ -39,13 +39,13 @@ module "vpc1" {
   }]
 }
 
-data "aws_ami" "data.aws_ami.amzn-linux-2023-ami.id" {
+data "aws_ami" "amazon_linux" {
   most_recent = true
   owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.*-x86_64"]
+    values = ["amzn-ami-hvm-*-x86_64-gp2"]
   }
 }
 
@@ -78,7 +78,7 @@ module "ec2" {
 
   name = local.name
 
-  ami                         =data.aws_ami.amzn-linux-2023-ami.id
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "c5.large"
   availability_zone           = local.availability_zone
  
@@ -92,7 +92,7 @@ module "ec2_instance" {
 
   name = "testmachine1"
 
-  ami                         = data.aws_ami.amzn-linux-2023-ami.id
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "c5.large"
   availability_zone           = local.availability_zone
 
